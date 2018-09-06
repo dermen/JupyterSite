@@ -15,8 +15,8 @@
     
     
     \usepackage[T1]{fontenc}
-    % Nicer default font than Computer Modern for most use cases
-    \usepackage{palatino}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -62,6 +62,7 @@
     \usepackage{hyperref}
     \usepackage{longtable} % longtable support required by pandoc >1.10
     \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     
@@ -166,6 +167,7 @@
 \expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
 \expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
 \expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
@@ -190,6 +192,7 @@
 \expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
 \expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
 \expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
@@ -198,6 +201,7 @@
 \expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
 \expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
 \expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
@@ -218,6 +222,7 @@
 \expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
 \expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
 \expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
 \expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
 \expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
@@ -275,13 +280,14 @@
     
 
     
-    \section{A Very Quick Introduction to Git/Github for Julia
-Users}\label{a-very-quick-introduction-to-gitgithub-for-julia-users}
+    \hypertarget{a-very-quick-introduction-to-gitgithub-for-julia-users}{%
+\section{A Very Quick Introduction to Git/Github for Julia
+Users}\label{a-very-quick-introduction-to-gitgithub-for-julia-users}}
 
 Julia's package system and Github are very closely intertwined:
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Julia's package management system (METADATA) is a Github repository
 \item
@@ -300,10 +306,11 @@ Julia's package system and Github are very closely intertwined:
 Because of this, it's very useful for everyone using Julia to know a
 little bit about Git/Github.
 
-    \subsection{Git Basics}\label{git-basics}
+    \hypertarget{git-basics}{%
+\subsection{Git Basics}\label{git-basics}}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   Git is a common Version Control System (VCS)
 \item
@@ -326,10 +333,11 @@ little bit about Git/Github.
   Stable versions are cut to \textbf{releases}
 \end{itemize}
 
-    \subsection{Github Basics}\label{github-basics}
+    \hypertarget{github-basics}{%
+\subsection{Github Basics}\label{github-basics}}
 
 \begin{itemize}
-\itemsep1pt\parskip0pt\parsep0pt
+\tightlist
 \item
   The major online server for git repositories is Github
 \item
@@ -350,10 +358,12 @@ An example Github repository for a Julia package is is
 DifferentialEquations.jl:
 https://github.com/JuliaDiffEq/DifferentialEquations.jl
 
-    \subsection{Using Julia's Package
-Manager}\label{using-julias-package-manager}
+    \hypertarget{using-julias-package-manager}{%
+\subsection{Using Julia's Package
+Manager}\label{using-julias-package-manager}}
 
-\subsubsection{Adding a Package}\label{adding-a-package}
+\hypertarget{adding-a-package}{%
+\subsubsection{Adding a Package}\label{adding-a-package}}
 
 Julia's package manager functions are mirror the Git functions. Julia's
 package system is similar to R/Python in that a large number of packages
@@ -365,8 +375,9 @@ package by Tom Breloff}. To add a package, use \texttt{Pkg.add}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{} You may need to update your local packages first}
-        \PY{n}{Pkg}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Plots}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{Pkg}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
+
 
     This will install the package to your local system. However, this will
 only work for registered packages. To add a non-registered package, go
@@ -375,10 +386,12 @@ to the Github repository to find the clone URL and use
 \texttt{ParameterizedFunctions} package, we can use:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{clone}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{https://github.com/JuliaDiffEq/ParameterizedFunctions.jl}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{clone}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{h}\PY{l+s}{t}\PY{l+s}{t}\PY{l+s}{p}\PY{l+s}{s}\PY{l+s}{:}\PY{l+s}{/}\PY{l+s}{/}\PY{l+s}{g}\PY{l+s}{i}\PY{l+s}{t}\PY{l+s}{h}\PY{l+s}{u}\PY{l+s}{b}\PY{l+s}{.}\PY{l+s}{c}\PY{l+s}{o}\PY{l+s}{m}\PY{l+s}{/}\PY{l+s}{J}\PY{l+s}{u}\PY{l+s}{l}\PY{l+s}{i}\PY{l+s}{a}\PY{l+s}{D}\PY{l+s}{i}\PY{l+s}{f}\PY{l+s}{f}\PY{l+s}{E}\PY{l+s}{q}\PY{l+s}{/}\PY{l+s}{P}\PY{l+s}{a}\PY{l+s}{r}\PY{l+s}{a}\PY{l+s}{m}\PY{l+s}{e}\PY{l+s}{t}\PY{l+s}{e}\PY{l+s}{r}\PY{l+s}{i}\PY{l+s}{z}\PY{l+s}{e}\PY{l+s}{d}\PY{l+s}{F}\PY{l+s}{u}\PY{l+s}{n}\PY{l+s}{c}\PY{l+s}{t}\PY{l+s}{i}\PY{l+s}{o}\PY{l+s}{n}\PY{l+s}{s}\PY{l+s}{.}\PY{l+s}{j}\PY{l+s}{l}\PY{l+s}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
-    \subsubsection{Importing a Package}\label{importing-a-package}
+
+    \hypertarget{importing-a-package}{%
+\subsubsection{Importing a Package}\label{importing-a-package}}
 
 To use a package, you have to import the package. The \texttt{import}
 statement will import the package without exporting the functions to the
@@ -390,7 +403,9 @@ precompile a lot of the functionality.) For example:
         \PY{n}{Plots}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
-    \subsubsection{Exporting Functionality}\label{exporting-functionality}
+
+    \hypertarget{exporting-functionality}{%
+\subsubsection{Exporting Functionality}\label{exporting-functionality}}
 
 To instead export the functions (of the developers choosing) to the
 namespace, we can use the \texttt{using} statement. Since Plots.jl
@@ -402,6 +417,7 @@ to the package that it came from:
         \PY{n}{plot}\PY{p}{(}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
+
     What really makes this possible in Julia but not something like Python
 is that namespace clashes are usually avoided by multiple dispatch. Most
 packages will define their own types in order to use dispatches, and so
@@ -410,8 +426,9 @@ types and thus do not clash with other packages. Therefore it's common
 in Julia for concise syntax like \texttt{plot} to be part of packages,
 all without fear of clashing.
 
-    \subsection{Getting on the Latest
-Version}\label{getting-on-the-latest-version}
+    \hypertarget{getting-on-the-latest-version}{%
+\subsection{Getting on the Latest
+Version}\label{getting-on-the-latest-version}}
 
 Since Julia is currently under lots of development, you may wish to
 checkout newer versions. By default, \texttt{Pkg.add} is the ``latest
@@ -424,8 +441,9 @@ which branch your local repository takes from. For example, to checkout
 the master branch, we can use:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{checkout}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Plots}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{checkout}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
+
 
     This will usually gives us pretty up to date features (if you are using
 a ``unreleased version of Julia'' like building from the source of the
@@ -434,12 +452,13 @@ packages working). However, to go to a specific branch we can give the
 branch as another argument:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{checkout}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Plots}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{dev}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Pkg}\PY{o}{.}\PY{n}{checkout}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{l}\PY{l+s}{o}\PY{l+s}{t}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{d}\PY{l+s}{e}\PY{l+s}{v}\PY{l+s}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
+
 
     This is not advised if you don't know what you're doing (i.e.~talk to
 the developer or read the pull requests (PR)), but this is common if you
-talk to a developer and they say ``yes, I already implemented that.
+talk to a developer and they say "yes, I already implemented that.
 Checkout the dev branch and use \texttt{plot(...)}).
 
 

@@ -1,0 +1,600 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{tma\_analysis\_sacla}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{k+kn}{import} \PY{n+nn}{glob}
+         \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k+kn}{import} \PY{n}{Counter}
+         
+         \PY{k+kn}{import} \PY{n+nn}{h5py}
+         \PY{k+kn}{import} \PY{n+nn}{pandas}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         
+         \PY{k+kn}{import} \PY{n+nn}{pylab} \PY{k+kn}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{run} \PY{o}{=} \PY{l+m+mi}{656748}
+          \PY{n}{h5} \PY{o}{=} \PY{n}{h5py}\PY{o}{.}\PY{n}{File}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{/radials.h5}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{run}, \PYZsq{}r\PYZsq{})
+          \PY{k}{print}\PY{p}{(} \PY{n}{h5}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[u'dark', u'pumped']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{print}\PY{p}{(}\PY{n}{h5}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pumped}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[u'Qrads', u'olaser\_delay', u'olaser\_volt', u'photon\_energy', u'pulse\_energy', u'radials', u'tag', u'xlaser\_joule\_bm\_1', u'xlaser\_joule\_bm\_2']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} nominal delay values}
+         \PY{c+c1}{\PYZsh{} Each unit corresponds to roughly 6.6 femtoseconds}
+         \PY{c+c1}{\PYZsh{} and time 0 is roughly olaser\PYZus{}delay=0}
+         \PY{n}{delay\PYZus{}vals} \PY{o}{=} \PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value} \PY{c+c1}{\PYZsh{} optical laser delay stage value}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pumped\PYZus{}tag} \PY{o}{=} \PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped/tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}
+         \PY{n}{order} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(} \PY{n}{pumped\PYZus{}tag}\PY{p}{)}
+         \PY{k}{print} \PY{n}{pumped\PYZus{}tag}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{delay\PYZus{}vals}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{pumped\PYZus{}tag}\PY{p}{[}\PY{n}{order}\PY{p}{]}\PY{p}{,} \PY{n}{delay\PYZus{}vals}\PY{p}{[}\PY{n}{order}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} watch how we changed the delay during this run}
+         \PY{c+c1}{\PYZsh{} negative stage olser\PYZus{}delay means}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(14423,) (14423,)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} [<matplotlib.lines.Line2D at 0x1161e8510>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{tma_analysis_sacla_files/tma_analysis_sacla_4_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Now those are the nominal delay values}
+         
+         \PY{c+c1}{\PYZsh{} We wish to make the time delay more precise by using the }
+         \PY{c+c1}{\PYZsh{} sub picosecond time\PYZhy{}tool at SACLA}
+         
+         \PY{c+c1}{\PYZsh{} This data is in the TMA results.CSV file(s) provided by SACLA}
+         \PY{n}{results} \PY{o}{=} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TMA/*/results.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} there are multiple files for different parts of the experiment}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} this is the title row in each results.CSV}
+         \PY{n}{cols} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagNumber,time\PYZus{}of\PYZus{}getting\PYZus{}image[msec/tag],time\PYZus{}of\PYZus{}detection[msec/tag],time\PYZus{}of\PYZus{}writing\PYZus{}to\PYZus{}udb[msec/tag],deriv\PYZus{}edge,fit\PYZus{}edge,memory\PYZus{}used[MB/core]}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{split}\PY{p}{(}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['tagNumber', 'time\_of\_getting\_image[msec/tag]', 'time\_of\_detection[msec/tag]', 'time\_of\_writing\_to\_udb[msec/tag]', 'deriv\_edge', 'fit\_edge', 'memory\_used[MB/core]']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} load the data from each results.CSV file and store in a large array}
+         \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{results} \PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{c+c1}{\PYZsh{} convert the array data to a pandas dataframe}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{cols}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{)} \PY{c+c1}{\PYZsh{} this is the tma data for the entire experiment}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{c+c1}{\PYZsh{} lets query the tma data for the particular run }
+          
+          \PY{c+c1}{\PYZsh{} first, we find the minimum and maximum tag number in our experimental data h5 file}
+          \PY{n}{tags} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(} \PY{p}{(}\PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,} \PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{)}\PY{p}{)}
+          \PY{n}{tmin}\PY{p}{,} \PY{n}{tmax} \PY{o}{=} \PY{n}{tags}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{tags}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} then we query the time\PYZhy{}tool dataframe}
+          \PY{n}{df\PYZus{}run} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tagNumber \PYZgt{}= }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ and tagNumber \PYZlt{}= }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{tmin}\PY{p}{,} \PY{n}{tmax}\PY{p}{)}\PY{p}{)}
+          \PY{k}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ shots in run }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(} \PY{n}{df\PYZus{}run}\PY{p}{)}\PY{p}{,} \PY{n}{h5}\PY{o}{.}\PY{n}{filename}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20000 shots in run r656748/radials.h5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{} Now , we should merge this TMA data frame with the experimental data in the hdf5 file}
+          
+          \PY{n}{pumped} \PY{o}{=} \PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dark} \PY{o}{=} \PY{n}{h5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} These are the relevant bits of the files, in particular the energy, radials and tag number}
+          \PY{n}{df\PYZus{}pumped\PYZus{}h5data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{)}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,} \PY{c+c1}{\PYZsh{} note we keep same name tagNumber as the TMA data for merging}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{photon\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{photon\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}volt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}volt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xlaser\PYZus{}joule\PYZus{}bm\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pumped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xlaser\PYZus{}joule\PYZus{}bm\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} the dame for the dark data}
+          \PY{n}{df\PYZus{}dark\PYZus{}h5data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{radials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{)}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,} \PY{c+c1}{\PYZsh{} note we keep same name tagNumber as the TMA data for merging}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pulse\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{photon\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{photon\PYZus{}energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}volt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olaser\PYZus{}volt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{,}
+                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xlaser\PYZus{}joule\PYZus{}bm\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dark}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xlaser\PYZus{}joule\PYZus{}bm\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}NOTE: we made pumped[radials] a list, this is slightly abusing the pandas philosophy}
+          \PY{c+c1}{\PYZsh{} but it is quite convenient because we can keep all the parameters aligned }
+          \PY{c+c1}{\PYZsh{} when we analyze the radials}
+          
+          \PY{c+c1}{\PYZsh{} NOTE: if radials is left as a numpy array pandas will raise an exception}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{} We can join the pumped and dark dataframes into one}
+          
+          \PY{c+c1}{\PYZsh{} To do so, we first create a boolean column called pumped}
+          \PY{n}{df\PYZus{}pumped\PYZus{}h5data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{True}
+          \PY{n}{df\PYZus{}dark\PYZus{}h5data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pumped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{False}
+          
+          \PY{c+c1}{\PYZsh{} then we can concatenate}
+          \PY{n}{df\PYZus{}h5} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{concat}\PY{p}{(} \PY{p}{(}\PY{n}{df\PYZus{}pumped\PYZus{}h5data}\PY{p}{,} \PY{n}{df\PYZus{}dark\PYZus{}h5data}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{k}{print} \PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}h5}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}h5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(['olaser\_delay', 'olaser\_volt', 'photon\_energy', 'pulse\_energy', 'radials', 'tagNumber', 'xlaser\_joule\_bm\_1', 'pumped'], 19230)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{c+c1}{\PYZsh{} Now we can merge the hdf5 dataframe with the SACLA time tool dataframe}
+          \PY{n}{df\PYZus{}main} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}run}\PY{p}{,} \PY{n}{df\PYZus{}h5}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} NOTE: pandas does an inner merge by default}
+          \PY{k}{print}\PY{p}{(} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}main}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(} \PY{n}{df\PYZus{}main}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(['tagNumber', 'time\_of\_getting\_image[msec/tag]', 'time\_of\_detection[msec/tag]', 'time\_of\_writing\_to\_udb[msec/tag]', 'deriv\_edge', 'fit\_edge', 'memory\_used[MB/core]', 'olaser\_delay', 'olaser\_volt', 'photon\_energy', 'pulse\_energy', 'radials', 'xlaser\_joule\_bm\_1', 'pumped'], 19230)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{c+c1}{\PYZsh{} During the experiment, as the optical laser delay stage was translated, }
+          \PY{c+c1}{\PYZsh{} the olaser\PYZus{}delay values being read out changed continuously.}
+          
+          \PY{c+c1}{\PYZsh{} This was because the time to jump from one delay stage value to another}
+          \PY{c+c1}{\PYZsh{} was much longer than the time between shots. }
+          
+          \PY{c+c1}{\PYZsh{} Therefore, we need to isolate the fixed values of olaser\PYZus{}delay in order }
+          \PY{c+c1}{\PYZsh{} to query the nominal delay values.}
+          
+          \PY{c+c1}{\PYZsh{} Usually, if a value is read out 10+ times in a row,  it\PYZsq{}s considered a fixed value}
+          \PY{n}{all\PYZus{}olaser\PYZus{}vals} \PY{o}{=} \PY{n}{Counter}\PY{p}{(} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{olaser\PYZus{}delay}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{k}{print} \PY{p}{(}\PY{n}{all\PYZus{}olaser\PYZus{}vals}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{} (olaser\PYZus{}value, frequency) pairs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(0, 971), (1, 1), (3, 1), (-508, 1), (5, 1), (-502, 1), (11, 1), (-424, 1), (19, 1), (-488, 1), (30, 1), (-681, 1), (43, 1), (-800, 1631), (46, 1), (-464, 1), (57, 1), (-453, 1), (70, 1), (-439, 1), (80, 1), (-427, 1), (88, 2), (94, 1), (-417, 1), (98, 1), (99, 1), (100, 859), (101, 1), (-410, 1), (104, 1), (-404, 1), (110, 1), (-401, 1), (-400, 974), (-201, 1), (-398, 1), (118, 1), (-388, 1), (127, 2), (-383, 1), (-379, 1), (140, 1), (-368, 1), (-630, 1), (410, 1), (154, 1), (-354, 1), (-656, 1), (163, 1), (167, 1), (-340, 1), (-339, 1), (178, 1), (-328, 1), (187, 1), (193, 1), (-318, 1), (197, 1), (198, 1), (199, 1), (200, 1074), (-310, 1), (203, 1), (-305, 1), (208, 1), (-302, 1), (-300, 991), (-298, 1), (215, 1), (-295, 1), (-292, 1), (224, 1), (-799, 1), (-798, 1), (-797, 1), (-794, 1), (-793, 1), (-280, 1), (236, 1), (-787, 2), (-269, 1), (-778, 2), (250, 1), (-256, 1), (-767, 2), (-469, 1), (260, 1), (263, 1), (-244, 1), (-242, 1), (-211, 1), (275, 1), (-229, 1), (284, 1), (-739, 1), (-738, 1), (288, 1), (291, 1), (-219, 1), (296, 1), (299, 1), (300, 958), (301, 1), (-722, 1), (-720, 1), (305, 1), (-205, 1), (-202, 1), (311, 1), (-200, 998), (-199, 1), (314, 1), (-195, 1), (-193, 1), (320, 1), (-288, 1), (-190, 1), (-701, 1), (330, 1), (-181, 1), (338, 1), (-171, 1), (343, 1), (-680, 1), (-112, 1), (-158, 1), (357, 1), (359, 1), (-663, 1), (231, 1), (-144, 1), (370, 1), (-141, 1), (-647, 1), (378, 2), (380, 1), (-131, 1), (387, 1), (388, 1), (-634, 1), (-121, 1), (393, 1), (394, 1), (395, 1), (-702, 1), (398, 2), (399, 1), (400, 3320), (-623, 1), (-754, 2), (-106, 1), (-102, 1), (-101, 1), (-100, 1008), (-99, 1), (-96, 1), (-607, 1), (-603, 1), (-90, 2), (-601, 2), (-600, 984), (-599, 1), (-596, 1), (-82, 1), (432, 1), (-590, 1), (440, 1), (-71, 1), (-582, 1), (446, 1), (449, 1), (450, 5273), (-572, 1), (-59, 1), (-570, 1), (-394, 1), (-559, 1), (-45, 1), (-42, 1), (-545, 1), (-32, 1), (422, 1), (-538, 1), (-21, 1), (-527, 1), (-13, 1), (-1, 1), (-614, 1), (-6, 1), (-2, 1)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{good\PYZus{}delays} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{all\PYZus{}olaser\PYZus{}vals}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{v} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+          \PY{k}{print} \PY{p}{(} \PY{n}{good\PYZus{}delays}\PY{p}{)} \PY{c+c1}{\PYZsh{} store these numbers for later use in analysis queries}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0, -800, 100, -400, 200, -300, 300, -200, 400, -100, -600, 450]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{c+c1}{\PYZsh{} Above are the nominal delay values that were set during this run}
+          \PY{c+c1}{\PYZsh{} (remember, the units correspond to roughly 6.6 picoseconds of delay)}
+          
+          \PY{c+c1}{\PYZsh{} We can calculate the time\PYZhy{}delay per shot using the fit\PYZus{}edge from the time\PYZhy{}tool data}
+          
+          \PY{c+c1}{\PYZsh{} Lets look at the time tool fit\PYZus{}edge position across the run}
+          \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{fit\PYZus{}edge}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x11aba7390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{tma_analysis_sacla_files/tma_analysis_sacla_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{c+c1}{\PYZsh{} Looks like some outliers near edge positions 1000, so lets give a modest crop to the fit\PYZus{}edge}
+          \PY{n}{df\PYZus{}main} \PY{o}{=} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit\PYZus{}edge \PYZgt{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ and fit\PYZus{}edge \PYZlt{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{850}\PY{p}{)}\PY{p}{)}
+          \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{fit\PYZus{}edge}\PY{o}{.}\PY{n}{hist}\PY{p}{(} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}136}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x11c61ae50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{tma_analysis_sacla_files/tma_analysis_sacla_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{} lets watch how this fit\PYZus{}edge is changing in time by sorting according to tagNumber}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{fit\PYZus{}edge}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{tagNumber}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}137}]:} [<matplotlib.lines.Line2D at 0x11ccba3d0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{tma_analysis_sacla_files/tma_analysis_sacla_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{} It looks like the fit\PYZus{}edge is pretty uniform across this sun, }
+          
+          \PY{c+c1}{\PYZsh{} Therefore, we can assume the average fit\PYZus{}edge is the nominal time delay.}
+          
+          \PY{c+c1}{\PYZsh{} The correction to the time delay is \PYZti{}3 femtosecond per fit\PYZus{}edge}
+          \PY{c+c1}{\PYZsh{} and arrival timing increases with fit\PYZus{}edge}
+          \PY{n}{df\PYZus{}main}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}adjust}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{fit\PYZus{}edge} \PY{o}{\PYZhy{}} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{fit\PYZus{}edge}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.003}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{} now , we commpute the per\PYZhy{}shot time delay: (olaser\PYZus{}delay unit is roughly 6.6 femtoseconds)}
+          \PY{n}{df\PYZus{}main}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{delay\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{olaser\PYZus{}delay} \PY{o}{*} \PY{l+m+mf}{0.0066} \PY{o}{+} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{time\PYZus{}adjust}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{c+c1}{\PYZsh{} lets save this dataframe}
+          \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{run}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZus{}main.pkl}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{run})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{c+c1}{\PYZsh{} the dataframe is quite useful}
+          \PY{c+c1}{\PYZsh{} e.g. to plot the average pumped radial profile}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{df\PYZus{}main}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pumped==True}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{radials}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{p}{)}
+          \PY{c+c1}{\PYZsh{} The next notebook explains how to do detailed analysis}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:} [<matplotlib.lines.Line2D at 0x11ab54410>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{tma_analysis_sacla_files/tma_analysis_sacla_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
